@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body class="bg-startscreen">
+    <section class="startscreen">
+        <div class="startscreen__titel">
+            <h1 class="startscreen__titel--text">Enter your name</h1>
+        </div>
+        <form action="/start-game" method="POST">
+            <div class="startscreen__input-box">
+                <label for="name">Name:</label>
+                <input type="text" name="username" class="startscreen__input-box--input" required pattern="[A-Za-z]{3,}">
+            </div>
+            <div class="startscreen__start-box">
+                <input type="submit" value="Start" class="startscreen__start-box--start">
+            </div>
+        </form>
+    </section>
+</body>
+</html>
+
