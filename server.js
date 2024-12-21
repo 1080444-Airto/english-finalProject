@@ -1,7 +1,10 @@
 const express = require("express")
 const session = require("express-session")
 const app = express()
+const dotenv = require('dotenv');
+dotenv.config();
 
+process.env.OPENAI_KEY
 app.set('view engine', 'ejs')
 
 app.use(express.static(__dirname + '/css'));

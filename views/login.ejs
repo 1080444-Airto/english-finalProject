@@ -8,51 +8,5 @@
 </head>
 <body>
     <%= locals.username %>
-    <section class="login">
-        <div class="login__header">
-            <% if(page === "login"){ %>
-                <h1 class="login__header--title">Login</h1>
-            <% } else{ %>
-                <h1 class="login__header--title">Maak account</h1>
-            <% } %>
-        </div>
-        <% if(page === "login"){ %>
-        <form action="/login" method="post">
-        <% } else{ %>
-        <form action="/register" method="post">
-        <% } %>
-            <% if(page === "register"){ %>
-            <div class="login__input-box">
-                <label for="username">Gebruikersnaam:</label>
-                <input type="text" class="login__input-box--input" v-model="user.username">
-            </div>
-            <% } %>
-            <div class="login__input-box">
-                <label for="email">e-mail:</label>
-                <input type="email" class="login__input-box--input" v-model="user.email">
-            </div>
-            <div class="login__input-box">
-                <label for="password">Wachtwoord:</label>
-                <input type="password" class="login__input-box--input" v-model="user.password">
-            </div>
-            <% if(page === "register"){ %>
-            <div class="login__input-box">
-                <label for="password">Check wachtwoord:</label>
-                <input type="password" class="login__input-box--input" v-model="user.password_confirmation">
-            </div>
-            <% } %>
-            <% if(page === "login"){ %>
-            <div class="login__button-box">
-                <button class="login__button-box--button" type="submit">Inloggen</button>
-                <a class="login__button-box--link" href="register">Register pagina</a>
-            </div>
-            <% } else{ %>
-            <div class="login__button-box">
-                <button class="login__button-box--button" type="submit">Maak account</button>
-                <a class="login__button-box--link" href="login">Login pagina</a>
-            </div>
-            <% } %>
-        </form>
-    </section>
 </body>
 </html>

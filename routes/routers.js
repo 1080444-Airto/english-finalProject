@@ -3,7 +3,7 @@ const router = express.Router()
 
 //All get Routes
 router.get("/", (req, res) => {
-    res.render("index", { name: "Airto"})
+    res.render("index")
 })
 
 router.get("/login", (req, res) => {
@@ -15,7 +15,7 @@ router.get("/register", (req, res) => {
 })
 
 //All post Routes
-router.post("/start-game", (req, res) => {
+router.post("/login", (req, res) => {
     req.session.username = req.body.username.trim()
 
     res.redirect("/login")
