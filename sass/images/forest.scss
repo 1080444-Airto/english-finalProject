@@ -1,0 +1,38 @@
+.bg-forest{
+    background-image: url("./background/forest.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.forest{
+    &__plastic{
+        display: none;
+        position: relative;
+
+        &--img{
+            position: absolute;
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+
+    &__dialog{
+        background-color: $white;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        border: $black solid 1px;
+        padding: 0.6rem 0.8rem;
+
+        &--next{
+            display: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        &--img{
+            width: 5rem;
+        }
+    }
+}

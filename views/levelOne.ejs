@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body class="bg-forest">
+    <section class="forest">
+        <div id="plastic" class="forest__plastic">
+            <img class="forest__plastic--img" id="plastic0" src="plastic.png" alt="plastic">
+            <img class="forest__plastic--img" id="plastic1" src="plastic.png" alt="plastic">
+            <img class="forest__plastic--img" id="plastic2" src="plastic.png" alt="plastic">
+        </div>
+        <div class="forest__dialog" id="dialog">
+            <p id="dialog_text"></p>
+            <p class="forest__dialog--next" id="dialog_next">NEXT</p>
+            <img class="forest__dialog--img" src="dirk.png" alt="plastic">
+        </div>
+    </section>
+</body>
+</html>
+
+<script type="text/javascript" type="module">
+
+    // Every id I need from this page in this script.
+    const plastic = document.getElementById("plastic")
+    const dialog = document.getElementById("dialog")
+    const dialog_text = document.getElementById("dialog_text")
+    const dialog_next = document.getElementById("dialog_next")
+
+    // Game dialog sentences, dialog that is shown and witch centense it is on.
+    const dialog_start = [
+        "Hello there are you also here for helping nature.",
+        "...",
+        "Great what is your name.",
+        "...",
+        "Hello <%= locals.username %> my name is Dirk today we are gonna help nature.",
+        "Our first task is removing all plastic from nature can you help me with doing that.",
+        "( Find the 3 plastic. )",
+    ]
+    const dialog_end = [
+        "Great job we got all of the plastic from the forest."
+    ]
+    let dialog_played = dialog_start
+    let dialog_sentence = 0
+
+    //Founded plastic.
+    let plastic_found = 0
+
+    //Showes the played dialog.
+    function dialog_show(dialog_array){
+        let dialog_show = dialog_array[dialog_sentence].split(" ")
+        let dialog_word = 0
+        dialog_text.innerText = dialog_show[0]
+        const interval = setInterval(() => {
+            dialog_word++
+            if(dialog_show.length > dialog_word){
+                dialog_text.innerText = `${dialog_text.innerText} ${dialog_show[dialog_word]}`
+            }
+            else{
+                dialog_word = 0
+                dialog_next.style.display = "block"
+                clearInterval(interval)
+            }
+        }, 200)
+    }
+    dialog_show(dialog_played)
+
+    //Randomize the placement of the plastic.
+    function randomize_plastic_placement(){
+        const plastic_images = document.getElementsByClassName("forest__plastic--img")
+        for(let i=0; i<plastic_images.length; i++){
+            plastic_images[i].style.left = `${Math.floor(Math.random() * (window.innerWidth - plastic_images[i].offsetWidth))}px`
+            plastic_images[i].style.top = `${Math.floor(Math.random() * (window.innerHeight - plastic_images[i].offsetHeight))}px`
+        }
+    }
+
+    function fun_fact_openai(){
+        fetch("./level-one/fun-fact", {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            method: "POST",
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            return response
+        });
+    }
+    fun_fact_openai()
+
+    //Onclick for the next dialog.
+    dialog_next.onclick = () => {
+        dialog_sentence += 1
+        if(dialog_played.length !== dialog_sentence){
+            dialog_next.style.display = "none"
+            dialog_show(dialog_played)
+        }
+        else{
+            dialog_sentence = 0
+            dialog.style.display = "none"
+            plastic.style.display = "block"
+            randomize_plastic_placement()
+        }
+    }
+
+    //Onclick for the found plastic.
+    for(let i=0; i<document.getElementsByClassName("forest__plastic--img").length; i++){
+        document.getElementById(`plastic${i}`).onclick = () => {
+            document.getElementById(`plastic${i}`).style.display = "none"
+            plastic_found++
+            if(document.getElementsByClassName("forest__plastic--img").length === plastic_found){
+                dialog.style.display = "block"
+                dialog_played = dialog_end
+                dialog_show(dialog_played)
+            }
+        }
+    }
+</script>

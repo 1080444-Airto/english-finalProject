@@ -45,3 +45,43 @@
   border-radius: 0.5rem;
   cursor: pointer;
 }
+
+.boy {
+  width: 8rem;
+  height: 8rem;
+  position: absolute;
+  bottom: 0;
+}
+
+.bg-forest {
+  background-image: url("./background/forest.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.forest__plastic {
+  display: none;
+  position: relative;
+}
+.forest__plastic--img {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+}
+.forest__dialog {
+  background-color: #ffffff;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border: #000000 solid 1px;
+  padding: 0.6rem 0.8rem;
+}
+.forest__dialog--next {
+  display: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+.forest__dialog--img {
+  width: 5rem;
+}
