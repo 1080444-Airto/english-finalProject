@@ -46,13 +46,6 @@
   cursor: pointer;
 }
 
-.boy {
-  width: 8rem;
-  height: 8rem;
-  position: absolute;
-  bottom: 0;
-}
-
 .bg-forest {
   background-image: url("./background/forest.png");
   background-size: cover;
