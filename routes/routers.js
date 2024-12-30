@@ -6,11 +6,6 @@ const auth = require("../middleware/checkLogin")
 const dotenv = require('dotenv')
 dotenv.config()
 
-const { OpenAI } = require("openai")
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_KEY,
-});
-
 //All get Routes
 router.get("/", (req, res) => {
     return res.render("index")
