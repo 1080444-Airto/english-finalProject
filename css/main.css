@@ -69,7 +69,7 @@
   width: 2rem;
   height: 2rem;
 }
-.forest__dialog {
+.forest__dialog-container {
   background-color: #ffffff;
   position: absolute;
   bottom: 0;
@@ -77,11 +77,25 @@
   border: #000000 solid 1px;
   padding: 0.6rem 0.8rem;
 }
-.forest__dialog--next {
-  display: none;
+.forest__dialog-container--game-start {
   cursor: pointer;
   font-weight: bold;
 }
-.forest__dialog--img {
+.forest__dialog-container--dialog-next {
+  cursor: pointer;
+  font-weight: bold;
+  color: #000000;
+  text-decoration: none;
+  display: none;
+}
+.forest__dialog-container--friend {
   width: 5rem;
+  display: none;
+}
+.forest__dialog-container--game-next {
+  cursor: pointer;
+  font-weight: bold;
+  color: #000000;
+  text-decoration: none;
+  display: none;
 }

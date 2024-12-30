@@ -13,10 +13,18 @@
             <img class="forest__plastic--img" id="plastic1" src="plastic.png" alt="plastic">
             <img class="forest__plastic--img"  id="plastic2" src="plastic.png" alt="plastic">
         </div>
-        <div class="forest__dialog" id="dialog">
-            <p id="dialog_text"></p>
-            <p class="forest__dialog--next" id="dialog_next">NEXT</p>
-            <img class="forest__dialog--img" src="friend.png" id="friend_image" alt="friend">
+        <div class="forest__dialog-container" id="dialog-container">
+            <div>
+                <p class="forest__dialog-container--game-start" id="start-game">START LEVEL</p>
+            </div>
+            <div>
+                <p id="dialog-text"></p>
+                <p class="forest__dialog-container--dialog-next" id="dialog-next">NEXT</p>
+                <img class="forest__dialog-container--friend" src="friend.png" id="friend-image" alt="friend">
+            </div>
+            <div>
+                <a id="next-game" href="#" class="forest__dialog-container--game-next">NEXT LEVEL</a>
+            </div>
         </div>
     </section>
 </body>
@@ -26,93 +34,113 @@
 
     // Every id I need from this page in this script.
     const plastic = document.getElementById("plastic")
-    const dialog = document.getElementById("dialog")
-    const dialog_text = document.getElementById("dialog_text")
-    const dialog_next = document.getElementById("dialog_next")
-    const friend_image = document.getElementById("friend_image")
+    const allPlastic = document.getElementsByClassName("forest__plastic--img")
+    const dialog_container = document.getElementById("dialog-container")
+    const start_game = document.getElementById("start-game")
+    const dialog_text = document.getElementById("dialog-text")
+    const dialog_next = document.getElementById("dialog-next")
+    const friend_image = document.getElementById("friend-image")
+    const next_game = document.getElementById("next-game")
 
     // Game dialog sentences, dialog that is shown and witch centense it is on.
     const conversation = [
         {
             speaker: "Friend",
             message: "Hey <%= locals.username %>, I saw a lot of plastic in the forest when I went there to play. It made me really sad.",
-            audio: "...",
+            show_image: true,
+            audio: "dialog_levelOne1.mp3",
         },
         {
             speaker: "<%= locals.username %>",
             message: "Oh no! Plastic in the forest isn't good. It can hurt plants and animals. What can we do to help?",
-            audio: ""
+            show_image: false,
+            audio: false
         },
         {
             speaker: "Friend",
             message: "Maybe we can go to the forest and pick up the plastic! That way, the trees and animals will be safe.",
-            audio: "...",
+            show_image: true,
+            audio: "dialog_levelOne2.mp3",
         },
         {
             speaker: "<%= locals.username %>",
             message: "That's a fantastic idea! Cleaning the forest can make it beautiful and healthy again. Who will help you?",
-            audio: ""
+            show_image: false,
+            audio: false
         },
         {
             speaker: "Friend",
             message: "I'll ask my friends and family to join me. We can all clean together and have fun while helping nature!",
-            audio: "...",
+            show_image: true,
+            audio: "dialog_levelOne3.mp3",
         },
         {
             speaker: "<%= locals.username %>",
             message: "Awesome plan! Don't forget gloves to keep your hands safe and bags to carry the plastic.",
-            audio: ""
+            show_image: false,
+            audio: false
         },
         {
             speaker: "Friend",
             message: "Good idea! We can even learn about recycling and find the right place to throw the plastic away.",
-            audio: "...",
+            show_image: true,
+            audio: "dialog_levelOne4.mp3",
         },
         {
             speaker: "<%= locals.username %>",
             message: "Exactly! You're becoming a nature hero. Let's make the forest clean and happy!",
-            audio: ""
+            show_image: false,
+            audio: false
         },
         {
-            speaker: "Leo",
+            speaker: "Friend",
             message: "Thanks, <%= locals.username %>! I can't wait to see the forest looking green and healthy again!",
-            audio: "...",
+            show_image: true,
+            audio: "dialog_levelOne5.mp3",
         },
         {
             speaker: "<%= locals.username %>",
             message: "You're doing something amazing. Let's save nature, one plastic piece at a time!",
-            audio: ""
+            show_image: false,
+            audio: false
         },
     ];
-    let dialog_played = dialog_start
+    const audio = new Audio()
     let dialog_sentence = 0
 
     //Founded plastic.
     let plastic_found = 0
 
+    start_game.onclick = () => {
+        start_game.style.display = "none"
+        dialog_show(conversation[dialog_sentence])
+    }
+
     //Showes the played dialog.
     function dialog_show(dialog_array){
-        let dialog_show = dialog_array[dialog_sentence]["talk"].split(" ")
+        let dialog_show = dialog_array["message"].split(" ")
         let dialog_word = 0
-        friend_image.style.display = (dialog_array[dialog_sentence]["show_image"]) ? 'block' : 'none'
-        dialog_text.innerText = dialog_show[0]
+        friend_image.style.display = (dialog_array["show_image"]) ? 'block' : 'none'
+        dialog_text.innerText = `${dialog_array["speaker"]}: `
+        if(dialog_array["audio"]){
+            audio.src = `/${dialog_array["audio"]}`
+            audio.play();
+        }
         const interval = setInterval(() => {
-            dialog_word++
             if(dialog_show.length > dialog_word){
                 dialog_text.innerText = `${dialog_text.innerText} ${dialog_show[dialog_word]}`
             }
             else{
-                dialog_word = 0
                 dialog_next.style.display = "block"
                 clearInterval(interval)
             }
+            dialog_word++
         }, 100)
     }
-    dialog_show(conversation)
 
     //Randomize the placement of the plastic.
     function randomize_plastic_placement(){
-        const plastic_images = document.querySelectorAll(".forest__plastic--img")
+        const plastic_images = allPlastic
         for(let i=0; i<plastic_images.length; i++){
             plastic_images[i].style.left = `${Math.floor(Math.random() * (window.innerWidth - plastic_images[i].offsetWidth))}px`
             plastic_images[i].style.top = `${Math.floor(Math.random() * (window.innerHeight - plastic_images[i].offsetHeight))}px`
@@ -122,27 +150,31 @@
     //Onclick for the next dialog.
     dialog_next.onclick = () => {
         dialog_sentence += 1
-        if(dialog_played.length !== dialog_sentence){
+        if(conversation.length !== dialog_sentence){
             dialog_next.style.display = "none"
-            dialog_show(dialog_played)
+            dialog_show(conversation[dialog_sentence])
         }
         else{
             dialog_sentence = 0
-            dialog.style.display = "none"
-            plastic.style.display = "block"
+            dialog_container.style.display = "none"
+            dialog_text.style.display = "none"
+            dialog_next.style.display = "none"
+            audio.src = "/background_forest.mp3"
+            audio.loop = true
+            audio.play();
             randomize_plastic_placement()
+            plastic.style.display = "block"
         }
     }
 
     //Onclick for the found plastic.
-    for(let i=0; i<document.getElementsByClassName("forest__plastic--img").length; i++){
+    for(let i=0; i<allPlastic.length; i++){
         document.getElementById(`plastic${i}`).onclick = () => {
             document.getElementById(`plastic${i}`).style.display = "none"
             plastic_found++
-            if(document.getElementsByClassName("forest__plastic--img").length === plastic_found){
-                dialog.style.display = "block"
-                dialog_played = dialog_end
-                dialog_show(dialog_played)
+            if(allPlastic.length === plastic_found){
+                next_game.style.display = "block"
+                dialog_container.style.display = "block"
             }
         }
     }

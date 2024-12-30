@@ -17,7 +17,7 @@
         }
     }
 
-    &__dialog{
+    &__dialog-container{
         background-color: $white;
         position: absolute;
         bottom: 0;
@@ -25,14 +25,30 @@
         border: $black solid 1px;
         padding: 0.6rem 0.8rem;
 
-        &--next{
-            display: none;
+        &--game-start{
             cursor: pointer;
             font-weight: bold;
         }
 
-        &--img{
+        &--dialog-next{
+            cursor: pointer;
+            font-weight: bold;
+            color: $black;
+            text-decoration: none;
+            display: none;
+        }
+
+        &--friend{
             width: 5rem;
+            display: none;
+        }
+
+        &--game-next{
+            cursor: pointer;
+            font-weight: bold;
+            color: $black;
+            text-decoration: none;
+            display: none;
         }
     }
 }

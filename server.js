@@ -7,6 +7,7 @@ app.set('view engine', 'ejs')
 
 app.use(express.static(__dirname + '/css'));
 app.use(express.static(__dirname + '/images'));
+app.use(express.static(__dirname + '/audio'));
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
