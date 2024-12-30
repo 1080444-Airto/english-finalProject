@@ -11,12 +11,12 @@
         <div id="plastic" class="forest__plastic">
             <img class="forest__plastic--img" id="plastic0" src="plastic.png" alt="plastic">
             <img class="forest__plastic--img" id="plastic1" src="plastic.png" alt="plastic">
-            <img class="forest__plastic--img" id="plastic2" src="plastic.png" alt="plastic">
+            <img class="forest__plastic--img"  id="plastic2" src="plastic.png" alt="plastic">
         </div>
         <div class="forest__dialog" id="dialog">
             <p id="dialog_text"></p>
             <p class="forest__dialog--next" id="dialog_next">NEXT</p>
-            <img class="forest__dialog--img" src="dirk.png" alt="plastic">
+            <img class="forest__dialog--img" src="friend.png" id="friend_image" alt="friend">
         </div>
     </section>
 </body>
@@ -29,20 +29,61 @@
     const dialog = document.getElementById("dialog")
     const dialog_text = document.getElementById("dialog_text")
     const dialog_next = document.getElementById("dialog_next")
+    const friend_image = document.getElementById("friend_image")
 
     // Game dialog sentences, dialog that is shown and witch centense it is on.
-    const dialog_start = [
-        "Hello there are you also here for helping nature.",
-        "...",
-        "Great what is your name.",
-        "...",
-        "Hello <%= locals.username %> my name is Dirk today we are gonna help nature.",
-        "Our first task is removing all plastic from nature can you help me with doing that.",
-        "( Find the 3 plastic. )",
-    ]
-    const dialog_end = [
-        "Great job we got all of the plastic from the forest."
-    ]
+    const conversation = [
+        {
+            speaker: "Friend",
+            message: "Hey <%= locals.username %>, I saw a lot of plastic in the forest when I went there to play. It made me really sad.",
+            audio: "...",
+        },
+        {
+            speaker: "<%= locals.username %>",
+            message: "Oh no! Plastic in the forest isn't good. It can hurt plants and animals. What can we do to help?",
+            audio: ""
+        },
+        {
+            speaker: "Friend",
+            message: "Maybe we can go to the forest and pick up the plastic! That way, the trees and animals will be safe.",
+            audio: "...",
+        },
+        {
+            speaker: "<%= locals.username %>",
+            message: "That's a fantastic idea! Cleaning the forest can make it beautiful and healthy again. Who will help you?",
+            audio: ""
+        },
+        {
+            speaker: "Friend",
+            message: "I'll ask my friends and family to join me. We can all clean together and have fun while helping nature!",
+            audio: "...",
+        },
+        {
+            speaker: "<%= locals.username %>",
+            message: "Awesome plan! Don't forget gloves to keep your hands safe and bags to carry the plastic.",
+            audio: ""
+        },
+        {
+            speaker: "Friend",
+            message: "Good idea! We can even learn about recycling and find the right place to throw the plastic away.",
+            audio: "...",
+        },
+        {
+            speaker: "<%= locals.username %>",
+            message: "Exactly! You're becoming a nature hero. Let's make the forest clean and happy!",
+            audio: ""
+        },
+        {
+            speaker: "Leo",
+            message: "Thanks, <%= locals.username %>! I can't wait to see the forest looking green and healthy again!",
+            audio: "...",
+        },
+        {
+            speaker: "<%= locals.username %>",
+            message: "You're doing something amazing. Let's save nature, one plastic piece at a time!",
+            audio: ""
+        },
+    ];
     let dialog_played = dialog_start
     let dialog_sentence = 0
 
@@ -51,8 +92,9 @@
 
     //Showes the played dialog.
     function dialog_show(dialog_array){
-        let dialog_show = dialog_array[dialog_sentence].split(" ")
+        let dialog_show = dialog_array[dialog_sentence]["talk"].split(" ")
         let dialog_word = 0
+        friend_image.style.display = (dialog_array[dialog_sentence]["show_image"]) ? 'block' : 'none'
         dialog_text.innerText = dialog_show[0]
         const interval = setInterval(() => {
             dialog_word++
@@ -64,33 +106,18 @@
                 dialog_next.style.display = "block"
                 clearInterval(interval)
             }
-        }, 200)
+        }, 100)
     }
-    dialog_show(dialog_played)
+    dialog_show(conversation)
 
     //Randomize the placement of the plastic.
     function randomize_plastic_placement(){
-        const plastic_images = document.getElementsByClassName("forest__plastic--img")
+        const plastic_images = document.querySelectorAll(".forest__plastic--img")
         for(let i=0; i<plastic_images.length; i++){
             plastic_images[i].style.left = `${Math.floor(Math.random() * (window.innerWidth - plastic_images[i].offsetWidth))}px`
             plastic_images[i].style.top = `${Math.floor(Math.random() * (window.innerHeight - plastic_images[i].offsetHeight))}px`
         }
     }
-
-    function fun_fact_openai(){
-        fetch("./level-one/fun-fact", {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            method: "POST",
-        })
-        .then((response) => response.json())
-        .then((response) => {
-            return response
-        });
-    }
-    fun_fact_openai()
 
     //Onclick for the next dialog.
     dialog_next.onclick = () => {

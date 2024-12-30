@@ -1,7 +1,6 @@
 const express = require("express")
 const session = require("express-session")
 const app = express()
-const { Con, OP } = require("openai")
 
 process.env.OPENAI_KEY
 app.set('view engine', 'ejs')
@@ -11,6 +10,7 @@ app.use(express.static(__dirname + '/images'));
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+
 
 app.use(session({
     secret: 'secret',
