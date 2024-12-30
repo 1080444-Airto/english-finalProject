@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body class="bg-endscreen">
+    <section class="endscreen">
+        <div class="endscreen__titel">
+            <h1 class="endscreen__titel--text">Thanks for playing <%= locals.username %>! I hope you had fun.</h1>
+            <form action="/logout" method="post">
+                <input type="submit" class="endscreen__titel--again" value="Play again.">
+            </form>
+        </div>
+    </section>
+</body>
+</html>

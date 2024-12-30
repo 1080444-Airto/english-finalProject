@@ -23,7 +23,7 @@
                 <img class="forest__dialog-container--friend" src="friend.png" id="friend-image" alt="friend">
             </div>
             <div>
-                <a id="next-game" href="#" class="forest__dialog-container--game-next">NEXT LEVEL</a>
+                <a id="next-game" href="/level-two" class="forest__dialog-container--game-next">NEXT LEVEL</a>
             </div>
         </div>
     </section>
@@ -34,7 +34,7 @@
 
     // Every id I need from this page in this script.
     const plastic = document.getElementById("plastic")
-    const allPlastic = document.getElementsByClassName("forest__plastic--img")
+    const all_plastic = document.getElementsByClassName("forest__plastic--img")
     const dialog_container = document.getElementById("dialog-container")
     const start_game = document.getElementById("start-game")
     const dialog_text = document.getElementById("dialog-text")
@@ -135,15 +135,14 @@
                 clearInterval(interval)
             }
             dialog_word++
-        }, 100)
+        }, 150)
     }
 
     //Randomize the placement of the plastic.
     function randomize_plastic_placement(){
-        const plastic_images = allPlastic
-        for(let i=0; i<plastic_images.length; i++){
-            plastic_images[i].style.left = `${Math.floor(Math.random() * (window.innerWidth - plastic_images[i].offsetWidth))}px`
-            plastic_images[i].style.top = `${Math.floor(Math.random() * (window.innerHeight - plastic_images[i].offsetHeight))}px`
+        for(let i=0; i<all_plastic.length; i++){
+            all_plastic[i].style.left = `${Math.floor(Math.random() * (window.innerWidth - all_plastic[i].offsetWidth))}px`
+            all_plastic[i].style.top = `${Math.floor(Math.random() * (window.innerHeight - all_plastic[i].offsetHeight))}px`
         }
     }
 
@@ -168,11 +167,11 @@
     }
 
     //Onclick for the found plastic.
-    for(let i=0; i<allPlastic.length; i++){
-        document.getElementById(`plastic${i}`).onclick = () => {
-            document.getElementById(`plastic${i}`).style.display = "none"
+    for(let i=0; i<all_plastic.length; i++){
+        all_plastic[i].onclick = () => {
+            all_plastic[i].style.display = "none"
             plastic_found++
-            if(allPlastic.length === plastic_found){
+            if(all_plastic.length === plastic_found){
                 next_game.style.display = "block"
                 dialog_container.style.display = "block"
             }

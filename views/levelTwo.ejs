@@ -6,24 +6,24 @@
     <title>Document</title>
     <link rel="stylesheet" href="main.css">
 </head>
-<body class="bg-forest">
-    <section class="forest">
-        <div id="plastic" class="forest__plastic">
-            <img class="forest__plastic--img" id="plastic0" src="plastic.png" alt="plastic">
-            <img class="forest__plastic--img" id="plastic1" src="plastic.png" alt="plastic">
-            <img class="forest__plastic--img"  id="plastic2" src="plastic.png" alt="plastic">
+<body class="bg-city">
+    <section class="city">
+        <div id="trashcans" class="city__trashcans">
+            <img src="#" class="city__trashcans--img" alt="trashcan">
+            <img src="#" class="city__trashcans--img" alt="trashcan">
+            <img src="#" class="city__trashcans--img" alt="trashcan">
         </div>
-        <div class="forest__dialog-container" id="dialog-container">
+        <div class="city__dialog-container" id="dialog-container">
             <div>
-                <p class="forest__dialog-container--game-start" id="start-game">START LEVEL</p>
+                <p class="city__dialog-container--game-start" id="start-game">START LEVEL</p>
             </div>
             <div>
                 <p id="dialog-text"></p>
-                <p class="forest__dialog-container--dialog-next" id="dialog-next">NEXT</p>
-                <img class="forest__dialog-container--friend" src="friend.png" id="friend-image" alt="friend">
+                <p class="city__dialog-container--dialog-next" id="dialog-next">NEXT</p>
+                <img class="city__dialog-container--friend" src="friend.png" id="friend-image" alt="friend">
             </div>
             <div>
-                <a id="next-game" href="#" class="forest__dialog-container--game-next">NEXT LEVEL</a>
+                <a id="endscreen" href="/end-game" class="city__dialog-container--game-next">END SCREEN</a>
             </div>
         </div>
     </section>
@@ -33,83 +33,84 @@
 <script type="text/javascript" type="module">
 
     // Every id I need from this page in this script.
-    const plastic = document.getElementById("plastic")
-    const allPlastic = document.getElementsByClassName("forest__plastic--img")
+    const trashcans = document.getElementById("trashcans")
+    const all_trashcans = document.getElementsByClassName("city__trashcans--img")
     const dialog_container = document.getElementById("dialog-container")
     const start_game = document.getElementById("start-game")
     const dialog_text = document.getElementById("dialog-text")
     const dialog_next = document.getElementById("dialog-next")
     const friend_image = document.getElementById("friend-image")
-    const next_game = document.getElementById("next-game")
+    const endscreen = document.getElementById("endscreen")
 
     // Game dialog sentences, dialog that is shown and witch centense it is on.
     const conversation = [
         {
             speaker: "Friend",
-            message: "Hey <%= locals.username %>, I saw a lot of plastic in the forest when I went there to play. It made me really sad.",
+            message: "Hey <%= locals.username %>, we're done picking up all the plastic from the forest! The place looks so much better now!",
             show_image: true,
-            audio: "dialog_levelOne1.mp3",
+            audio: "dialog_levelTwo1.mp3",
         },
         {
             speaker: "<%= locals.username %>",
-            message: "Oh no! Plastic in the forest isn't good. It can hurt plants and animals. What can we do to help?",
+            message: "Yay! You did an amazing job! Now that the forest is clean, what should we do with all the plastic?",
             show_image: false,
             audio: false
         },
         {
             speaker: "Friend",
-            message: "Maybe we can go to the forest and pick up the plastic! That way, the trees and animals will be safe.",
+            message: "We should recycle it, right? I want to make sure we don't hurt the planet.",
             show_image: true,
-            audio: "dialog_levelOne2.mp3",
+            audio: "dialog_levelTwo2.mp3",
         },
         {
             speaker: "<%= locals.username %>",
-            message: "That's a fantastic idea! Cleaning the forest can make it beautiful and healthy again. Who will help you?",
+            message: "Yes, exactly! Recycling is the best way to help the planet. We need to make sure we put the plastic in the right bins.",
             show_image: false,
             audio: false
         },
         {
             speaker: "Friend",
-            message: "I'll ask my friends and family to join me. We can all clean together and have fun while helping nature!",
+            message: "Okay, so we can sort the plastic into different piles, like bottles, bags, and cans.",
             show_image: true,
-            audio: "dialog_levelOne3.mp3",
+            audio: "dialog_levelTwo3.mp3",
         },
         {
             speaker: "<%= locals.username %>",
-            message: "Awesome plan! Don't forget gloves to keep your hands safe and bags to carry the plastic.",
+            message: "That's perfect! And remember to rinse the plastic if it has anything messy inside, like food or drink!",
             show_image: false,
             audio: false
         },
         {
             speaker: "Friend",
-            message: "Good idea! We can even learn about recycling and find the right place to throw the plastic away.",
+            message: "I'll make sure everything is clean and ready to be recycled. Then, we can take it to the recycling center!",
             show_image: true,
-            audio: "dialog_levelOne4.mp3",
+            audio: "dialog_levelTwo4.mp3",
         },
         {
             speaker: "<%= locals.username %>",
-            message: "Exactly! You're becoming a nature hero. Let's make the forest clean and happy!",
+            message: "Great! By recycling, we're helping the Earth stay clean and happy. You're such a planet hero!",
             show_image: false,
             audio: false
         },
         {
             speaker: "Friend",
-            message: "Thanks, <%= locals.username %>! I can't wait to see the forest looking green and healthy again!",
+            message: "Thanks, <%= locals.username %>! I'm so glad we did this. The forest is happy again, and I'm happy too!",
             show_image: true,
-            audio: "dialog_levelOne5.mp3",
+            audio: "dialog_levelTwo5.mp3",
         },
         {
             speaker: "<%= locals.username %>",
-            message: "You're doing something amazing. Let's save nature, one plastic piece at a time!",
+            message: "You should be proud! You're making a real difference. Let's keep taking care of the Earth together!",
             show_image: false,
             audio: false
         },
     ];
+
     const audio = new Audio()
     let dialog_sentence = 0
 
-    //Founded plastic.
-    let plastic_found = 0
+    //Right trashcan
+    let plastic_trashcan = Number
 
     start_game.onclick = () => {
         start_game.style.display = "none"
@@ -135,16 +136,15 @@
                 clearInterval(interval)
             }
             dialog_word++
-        }, 100)
+        }, 150)
     }
 
-    //Randomize the placement of the plastic.
-    function randomize_plastic_placement(){
-        const plastic_images = allPlastic
-        for(let i=0; i<plastic_images.length; i++){
-            plastic_images[i].style.left = `${Math.floor(Math.random() * (window.innerWidth - plastic_images[i].offsetWidth))}px`
-            plastic_images[i].style.top = `${Math.floor(Math.random() * (window.innerHeight - plastic_images[i].offsetHeight))}px`
-        }
+    //Randomize the placement of the trashcans.
+    function randomize_trashcan_placement(){
+            plastic_trashcan = Math.floor(Math.random() * all_trashcans.length)
+            for(let i=0; i<all_trashcans.length; i++){
+                all_trashcans[i].src = (plastic_trashcan === i) ? "/plastic-trashcan.png" : "/trashcan.png"
+            }
     }
 
     //Onclick for the next dialog.
@@ -159,21 +159,19 @@
             dialog_container.style.display = "none"
             dialog_text.style.display = "none"
             dialog_next.style.display = "none"
-            audio.src = "/background_forest.mp3"
+            audio.src = "/background_city.mp3"
             audio.loop = true
             audio.play();
-            randomize_plastic_placement()
-            plastic.style.display = "block"
+            randomize_trashcan_placement()
+            trashcans.style.display = "flex"
         }
     }
 
-    //Onclick for the found plastic.
-    for(let i=0; i<allPlastic.length; i++){
-        document.getElementById(`plastic${i}`).onclick = () => {
-            document.getElementById(`plastic${i}`).style.display = "none"
-            plastic_found++
-            if(allPlastic.length === plastic_found){
-                next_game.style.display = "block"
+    //Onclick on the trashcans.
+    for(let i=0; i<all_trashcans.length; i++){
+        all_trashcans[i].onclick = () => {
+            if(i === plastic_trashcan){
+                endscreen.style.display = "block"
                 dialog_container.style.display = "block"
             }
         }

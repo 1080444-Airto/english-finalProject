@@ -8,6 +8,7 @@
   background-image: url("./background/startbg.png");
   background-size: cover;
   background-repeat: no-repeat;
+  height: 100vh;
 }
 
 .startscreen {
@@ -50,6 +51,7 @@
   background-image: url("./background/forest.png");
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: bottom;
   height: 100vh;
 }
 
@@ -91,4 +93,90 @@
   color: #000000;
   text-decoration: none;
   display: none;
+}
+
+.bg-city {
+  background-image: url("./background/city.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  height: 100vh;
+}
+
+.city__trashcans {
+  display: none;
+  position: absolute;
+  justify-content: space-between;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.city__trashcans--img {
+  cursor: pointer;
+  width: 20%;
+}
+.city__dialog-container {
+  background-color: #ffffff;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border: #000000 solid 1px;
+  padding: 0.6rem 0.8rem;
+}
+.city__dialog-container--game-start {
+  cursor: pointer;
+  font-weight: bold;
+}
+.city__dialog-container--dialog-next {
+  cursor: pointer;
+  font-weight: bold;
+  color: #000000;
+  text-decoration: none;
+  display: none;
+}
+.city__dialog-container--friend {
+  width: 5rem;
+  display: none;
+}
+.city__dialog-container--game-next {
+  cursor: pointer;
+  font-weight: bold;
+  color: #000000;
+  text-decoration: none;
+  display: none;
+}
+
+.bg-endscreen {
+  background-image: url("./background/startbg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.endscreen {
+  width: 80%;
+  border-radius: 1.2rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1.2rem 1.7rem;
+  background: rgba(217, 217, 217, 0.6);
+  backdrop-filter: blur(5px);
+}
+.endscreen__titel {
+  text-align: center;
+}
+.endscreen__titel--text {
+  margin-bottom: 1.1rem;
+}
+.endscreen__titel--again {
+  display: block;
+  margin: 0 auto;
+  padding: 0.3rem 0.7rem;
+  background-color: #4fec23;
+  border: #000000 solid 1px;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }

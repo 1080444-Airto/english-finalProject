@@ -1,11 +1,11 @@
-.bg-startscreen{
+.bg-endscreen{
     background-image: url("./background/startbg.png");
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
 }
 
-.startscreen{
+.endscreen{
     width: 80%;
     border-radius: 1.2rem;
     position: absolute;
@@ -18,25 +18,12 @@
 
     &__titel{
         text-align: center;
-    }
 
-    &__input-box{
-        display: flex;
-        align-items: center;
-        margin: 1.1rem 0;
-
-        &--input{
-            margin-left: 0.7rem;
-            padding: 0.3rem 0.6rem;
-            border: $black solid 1px;
-            border-radius: 0.5rem;
-            width: 100%;
+        &--text{
+            margin-bottom: 1.1rem;
         }
-    }
 
-    &__start-box{
-
-        &--start{
+        &--again{
             display: block;
             margin: 0 auto;
             padding: 0.3rem 0.7rem;
